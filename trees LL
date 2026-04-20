@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class BinaryTree {
+public:
+    Node* root;
+
+    BinaryTree() {
+        root = NULL;
+    }
+
+    Node* insertLeft(Node* parent, int val) {
+        parent->left = new Node(val);
+        return parent->left;
+    }
+
+    Node* insertRight(Node* parent, int val) {
+        parent->right = new Node(val);
+        return parent->right;
+    }
+
+    void inorder(Node* node) {
+        if (node == NULL) return;
+        inorder(node->left);
+        cout << node->data << " ";
+        inorder(node->right);
+    }
+};
+
+int main() {
+    BinaryTree tree;
+    tree.root = new Node(1);
+
+    Node* leftChild = tree.insertLeft(tree.root, 2);
+    Node* rightChild = tree.insertRight(tree.root, 3);
+
+    tree.insertLeft(leftChild, 4);
+    tree.insertRight(leftChild, 5);
+
+    cout << "In-order Traversal: ";
+    tree.inorder(tree.root);
+
+    return 0;
+}
